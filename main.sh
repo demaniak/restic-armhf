@@ -2,6 +2,7 @@
 echo "Running with ID $B2_ACCOUNT_ID"
 SRC=/src
 PWD="/run/secrets/restic"
+CMD="./restic -p $PWD"
 function bucketname  {
   BUCKET_NAME=`basename $1`
   BUCKET_NAME="$(echo -e "$BUCKET_NAME" | tr -dc '[:alnum:]')"
@@ -10,7 +11,7 @@ function bucketname  {
 }
 
 function initbucket {
-  ./restic -p $PWD -r b2:$1 init
+  $CMD -r b2:$1 init
   return $?
 }
 
@@ -28,7 +29,7 @@ function init {
 function backup {
   BUCKET_NAME=`bucketname $1`
   echo "Backing up directory $1 to bucket $BUCKET_NAME"
-  ./restic -p $PWD -r b2:$BUCKET_NAME backup $1
+  $CMD -r b2:$BUCKET_NAME backup $1
 }
 
 function backups {
