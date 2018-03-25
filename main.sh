@@ -5,7 +5,7 @@ PWD="/run/secrets/restic"
 CMD="./restic -p $PWD"
 function bucketname  {
   BUCKET_NAME=`basename $1`
-  BUCKET_NAME="$(echo -e "$BUCKET_NAME" | tr -dc '[:alnum:]')"
+  BUCKET_NAME="$B2_ACCOUNT_ID-$(echo -e "$BUCKET_NAME" | tr -dc '[:alnum:]')"
   echo $BUCKET_NAME
   return 0
 }
